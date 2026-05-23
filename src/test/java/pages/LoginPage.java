@@ -10,6 +10,7 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(id = "userName")
     public WebElement usernameField;
 
@@ -19,17 +20,19 @@ public class LoginPage extends BasePage {
     @FindBy(id = "login")
     public WebElement loginButton;
 
-    String username = "Aleksandra.Prlincevic1";
-    String password = "Qwerty123!@#";
+    @FindBy (id = "userForm")
+    public WebElement loginForm;
 
+    @FindBy(id = "name")
+    public WebElement errorMessage;
 
     //--------------------Metode za testiranje----------------
 
-    public void inputUsername(){
+    public void inputUsername(String username){
         wait.until(ExpectedConditions.elementToBeClickable(usernameField));
         usernameField.sendKeys(username);
     }
-    public void inputPassword(){
+    public void inputPassword(String password){
         wait.until(ExpectedConditions.elementToBeClickable(passwordField));
         passwordField.sendKeys(password);
     }
