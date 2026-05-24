@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BooksPage;
+import pages.LoginPage;
 import pages.ProfilePage;
 
 import java.time.Duration;
@@ -19,11 +20,23 @@ public class AddToCartTest extends BaseTest {
     String validUsername = "Aleksandra.Prlincevic1";
     String validPassword = "Qwerty123!@#";
 
-    public void validLogin(String validUsername, String validPassword) {
+    @BeforeMethod
+    public void testSetUp(){
+        driver = new ChromeDriver();
         driver.navigate().to("https://demoqa.com/login/");
-        loginPage.inputUsername(validUsername);
-        loginPage.inputPassword(validPassword);
-        loginPage.clickLoginButton();
-        wait.until(ExpectedConditions.urlToBe("https://demoqa.com/profile"));
+        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        profilePage = new ProfilePage(driver);
+        booksPage = new BooksPage(driver);
+        loginPage = new LoginPage(driver);
+        loginPage.validLogin(validUsername, validPassword);
+        profilePage.clickGoToBookStoreButton();
+
     }
+    @Test
+    public void addToCartTest(){
+        booksPage.clickOnSelectedItem();
+    }
+
+
 }

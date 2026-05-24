@@ -17,9 +17,7 @@ public class BooksPage extends BasePage {
     @FindBy(css = "a[href='/login']")
     public WebElement loginBox;
 
-
-    List<WebElement> rows = driver.findElements(By.xpath("//table/tr"));
-
+    List<WebElement> rows;
     WebElement selectedBookRow;
     WebElement selectedBookLink;
     //String bookName =selectedBookLink.getText();
@@ -33,8 +31,8 @@ public class BooksPage extends BasePage {
     }
 
     public void clickOnSelectedItem(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table/tr")));
-        List<WebElement> rows = driver.findElements(By.xpath("//table/tr"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody/tr")));
+        rows = driver.findElements(By.xpath("//tbody/tr"));
         selectedBookRow = rows.get(1);
         selectedBookLink = selectedBookRow.findElement(By.tagName("a"));
         wait.until(ExpectedConditions.elementToBeClickable(selectedBookLink));

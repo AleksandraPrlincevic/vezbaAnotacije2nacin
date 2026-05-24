@@ -36,5 +36,4 @@ public class ProfilePage extends BasePage {
         goToBookStoreButton.click();
     }
 
-
 }

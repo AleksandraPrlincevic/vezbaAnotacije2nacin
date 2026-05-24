@@ -48,4 +48,11 @@ public class LoginPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));
         loginButton.click();
     }
+
+    public void validLogin(String validUsername, String validPassword) {
+        inputUsername(validUsername);
+        inputPassword(validPassword);
+        clickLoginButton();
+        wait.until(ExpectedConditions.urlToBe("https://demoqa.com/profile"));
+    }
 }
