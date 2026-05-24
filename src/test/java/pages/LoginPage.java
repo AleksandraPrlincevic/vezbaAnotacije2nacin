@@ -22,9 +22,17 @@ public class LoginPage extends BasePage {
 
     @FindBy (id = "userForm")
     public WebElement loginForm;
-
+//-----------------------lokatori za invalid testove-----------------
     @FindBy(id = "name")
     public WebElement errorMessage;
+
+    @FindBy(css = "#userName.is-invalid.form-control")
+    public WebElement usernameFieldInvalid;
+
+    @FindBy(css = "#password.is-invalid.form-control")
+    public WebElement passwordFieldInvalid;
+
+
 
     //--------------------Metode za testiranje----------------
 

@@ -42,8 +42,9 @@ public class LoginTest extends BaseTest {
         homePage.clickBookStoreAppButton();
         booksPage.clickOnLoginBox();
     }
-       @Test (priority = 10)
-        public void validLoginTest() throws InterruptedException {
+
+    @Test (priority = 10)
+        public void validLogin() throws InterruptedException {
 
         loginPage.inputUsername(validUsername);
         loginPage.inputPassword(validPassword);
@@ -56,11 +57,9 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(profilePage.usernameString.getText(), validUsername);
 
         Assert.assertTrue(profilePage.logoutButton.isDisplayed());
-
-
     }
     @Test (priority = 1)
-    public void invalidLoginTest1() throws InterruptedException {
+    public void invalidCredentials() throws InterruptedException {
 
         loginPage.inputUsername(invalidUsername);
         loginPage.inputPassword(invalidPassword);
@@ -68,11 +67,60 @@ public class LoginTest extends BaseTest {
 
         String actualURL = driver.getCurrentUrl();
         Assert.assertEquals(actualURL, loginURL);
-        Thread.sleep(3000);
-        Assert.assertTrue(loginPage.loginForm.isDisplayed());
+
+         wait.until(ExpectedConditions.visibilityOf(loginPage.loginForm)); // ali ovo je zapravo vec neka vrsta asertacije ?
+        Assert.assertTrue(loginPage.loginForm.isDisplayed());              // i ovde sad proveravam isto ali koristim assert
 
         String expectedMessage = "Invalid username or password!";
         Assert.assertEquals(loginPage.errorMessage.getText(), expectedMessage);
+    }
 
+    @Test (priority = 2)
+    public void missingUsername() throws InterruptedException {
+
+        loginPage.inputUsername("");
+        loginPage.inputPassword(validPassword);
+        loginPage.clickLoginButton();
+
+        String actualURL = driver.getCurrentUrl();
+        Assert.assertEquals(actualURL, loginURL);
+
+        wait.until(ExpectedConditions.visibilityOf(loginPage.loginForm));
+        Assert.assertTrue(loginPage.loginForm.isDisplayed());
+
+        Assert.assertTrue(loginPage.usernameFieldInvalid.isDisplayed());
+    }
+
+    @Test (priority = 3)
+    public void missingPassword() throws InterruptedException {
+
+        loginPage.inputUsername(validUsername);
+        loginPage.inputPassword("");
+        loginPage.clickLoginButton();
+
+        String actualURL = driver.getCurrentUrl();
+        Assert.assertEquals(actualURL, loginURL);
+
+        wait.until(ExpectedConditions.visibilityOf(loginPage.loginForm));
+        Assert.assertTrue(loginPage.loginForm.isDisplayed());
+
+        Assert.assertTrue(loginPage.passwordFieldInvalid.isDisplayed());
+    }
+
+    @Test (priority = 4)
+    public void missingUsernameAndPassword() throws InterruptedException {
+
+        loginPage.inputUsername("");
+        loginPage.inputPassword("");
+        loginPage.clickLoginButton();
+
+        String actualURL = driver.getCurrentUrl();
+        Assert.assertEquals(actualURL, loginURL);
+        Thread.sleep(3000);
+
+        Assert.assertTrue(loginPage.loginForm.isDisplayed());
+
+        Assert.assertTrue(loginPage.passwordFieldInvalid.isDisplayed());
+        Assert.assertTrue(loginPage.passwordFieldInvalid.isDisplayed());
     }
 }
