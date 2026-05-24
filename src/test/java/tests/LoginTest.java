@@ -50,7 +50,7 @@ public class LoginTest extends BaseTest {
         loginPage.inputPassword(validPassword);
         loginPage.clickLoginButton();
 
-        Thread.sleep(3000);
+        wait.until(ExpectedConditions.urlToBe("https://demoqa.com/profile"));
         String actualURL = driver.getCurrentUrl();
         Assert.assertEquals(actualURL, profileURL);
 
@@ -116,8 +116,8 @@ public class LoginTest extends BaseTest {
 
         String actualURL = driver.getCurrentUrl();
         Assert.assertEquals(actualURL, loginURL);
-        Thread.sleep(3000);
 
+        wait.until(ExpectedConditions.visibilityOf(loginPage.loginForm));
         Assert.assertTrue(loginPage.loginForm.isDisplayed());
 
         Assert.assertTrue(loginPage.passwordFieldInvalid.isDisplayed());
