@@ -18,9 +18,8 @@ public class BooksPage extends BasePage {
     public WebElement loginBox;
 
     List<WebElement> rows;
-    WebElement selectedBookRow;
-    WebElement selectedBookLink;
-    //String bookName =selectedBookLink.getText();
+    public WebElement selectedBookRow;
+    public WebElement selectedBookLink;
 
 
     //--------------------Metode za testiranje----------------
@@ -29,11 +28,14 @@ public class BooksPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(loginBox));
         loginBox.click();
     }
+    public String getExpectedBookTitle(){
+        return selectedBookLink.getText();
+    }
 
     public void clickOnSelectedItem(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody/tr")));
         rows = driver.findElements(By.xpath("//tbody/tr"));
-        selectedBookRow = rows.get(1);
+        selectedBookRow = rows.get(0);
         selectedBookLink = selectedBookRow.findElement(By.tagName("a"));
         wait.until(ExpectedConditions.elementToBeClickable(selectedBookLink));
         selectedBookLink.click();

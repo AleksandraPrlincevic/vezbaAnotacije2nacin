@@ -6,10 +6,7 @@ import org.openqa.selenium.devtools.v145.profiler.model.Profile;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import pages.BooksPage;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.ProfilePage;
+import pages.*;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -19,6 +16,7 @@ public class BaseTest {
     public BooksPage booksPage;
     public LoginPage loginPage;
     public ProfilePage profilePage;
+    public SingleBookPage singleBookPage;
 
     @BeforeClass
     public void setUp(){
