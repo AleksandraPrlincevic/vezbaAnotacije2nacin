@@ -20,6 +20,9 @@ public class SingleBookPage extends BasePage {
     @FindBy(xpath = "//div[@id='title-wrapper']//label[@id='userName-value']")
     WebElement bookTitle;
 
+    @FindBy(css = "a[href = '/profile']")
+     WebElement profileButton;
+
     //-------------------metode za testiranje--------------------
 
     public void clickAddToYourCollectionButton(){
@@ -31,5 +34,10 @@ public class SingleBookPage extends BasePage {
         //Da ne bih komplikovala jer vec mi je komplikovano ispravila sam ostale elemente u public. sledeci put cu probati da svi budu private.
         return bookTitle.getText();
     }
+    public void clickOnProfileButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(profileButton));
+        profileButton.click();
+    }
+
 
 }

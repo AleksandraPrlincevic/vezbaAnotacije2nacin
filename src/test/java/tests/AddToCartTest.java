@@ -1,9 +1,9 @@
 package tests;
 
 import base.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -43,10 +43,19 @@ public class AddToCartTest extends BaseTest {
         //String expectedBookTitle = booksPage.getExpectedBookTitle();
         booksPage.clickOnSelectedItem();
         singleBookPage = new SingleBookPage(driver);//mora u testu jer ako ide pre nje to je prerano
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
+        singleBookPage.clickAddToYourCollectionButton();
         //String actualBookTitle = singleBookPage.getBookTitle();
         //Assert.assertTrue(singleBookPage.addToYourCollectionButton.isDisplayed());
-        //Assert.assertEquals(actualBookTitle, expectedBookTitle);
+        //Assert.assertEquals(actualBookTitle, expectedBookTitle)
+        Thread.sleep(3000);
+        try {
+            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+            alert.accept();
+        } catch (TimeoutException e) {
+            System.out.println("Preskocili smo popup!");
+        }
+        singleBookPage.clickOnProfileButton();
 
     }
 }
